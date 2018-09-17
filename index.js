@@ -1,5 +1,5 @@
 const meow = require('meow')
-const ConfigManager = require('./src/configManager')
+const ConfigManager = require('./src/lib/configManager')
 
 const cli = meow(
   `
@@ -21,5 +21,3 @@ const cli = meow(
 )
 
 const config = new ConfigManager(cli.flags['config'])
-
-console.log(config.get('token'))

@@ -7,7 +7,7 @@ module.exports = class ConfigManager {
   }
 
   set config (configPath) {
-    let confPath = path.join(__dirname, '..', configPath)
+    let confPath = path.join(__dirname, '../..', configPath)
 
     this._config = JSON.parse(fs.readFileSync(confPath, { encoding: 'utf-8' }))
   }
