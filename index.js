@@ -1,5 +1,6 @@
 const meow = require('meow')
 const ConfigManager = require('./src/lib/configManager')
+const Himeka = require('./src/himeka')
 
 const cli = meow(
   `
@@ -21,3 +22,6 @@ const cli = meow(
 )
 
 const config = new ConfigManager(cli.flags['config'])
+const himeka = new Himeka(config)
+
+himeka.run()
