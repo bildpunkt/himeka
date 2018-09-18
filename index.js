@@ -1,26 +1,8 @@
-const meow = require('meow')
 const ConfigManager = require('./src/lib/configManager')
+const CLIManager = require('./src/lib/cliManager')
 const Himeka = require('./src/himeka')
 
-const cli = meow(
-  `
-  Usage:
-    $ npm start [-- {options}]
-
-  Options:
-    --config, -c  Specify a different config path
-  `,
-  {
-    flags: {
-      config: {
-        type: 'string',
-        default: 'config/himeka.json',
-        alias: 'c'
-      }
-    }
-  }
-)
-
+const cli = new CLIManager()
 const config = new ConfigManager(cli.flags['config'])
 const himeka = new Himeka(config)
 
