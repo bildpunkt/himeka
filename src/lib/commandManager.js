@@ -46,6 +46,8 @@ module.exports = class CommandManager {
   setupCommands () {
     const events = Object.keys(this.commands)
 
+    this.client.on('ready', () => {})
+
     events.forEach((event) => {
       const commands = Object.keys(this.commands[event])
 

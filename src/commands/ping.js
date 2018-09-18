@@ -3,8 +3,10 @@ module.exports = {
   description: 'Ping!',
   event: 'message',
   execute(args, config) {
-      const message = args[0]
-      
-      message.channel.send('Pong.');
+    const message = args[0]
+    
+    if (message.content === 'ping') {
+      message.channel.send('pong')
+    }
   },
 };
