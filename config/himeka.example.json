@@ -1,3 +1,7 @@
 {
-  "token": "this-is-a-token"
+  "token": "this-is-a-token",
+  "additionalCommands": {
+    "enabled": false,
+    "path": "./additional/"
+  }
 }
