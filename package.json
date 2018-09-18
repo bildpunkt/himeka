@@ -23,6 +23,9 @@
   "homepage": "https://github.com/pixeldesu/himeka#readme",
   "dependencies": {
     "discord.js": "^11.4.2",
-    "meow": "^5.0.0"
+    "meow": "^5.0.0",
+    "sequelize": "^4.38.1",
+    "sequelize-cli": "^4.1.1",
+    "sqlite3": "^4.0.2"
   }
 }

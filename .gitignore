@@ -62,6 +62,7 @@ typings/
 
 # config file
 config/himeka.json
+config/config.json
 
 # (default) additional commands path
 additional/
