@@ -66,3 +66,6 @@ config/config.json
 
 # (default) additional commands path
 additional/
+
+# sqlite databases
+*.sqlite
