@@ -7,8 +7,9 @@ module.exports = class Himeka {
     this.client = new Discord.Client()
 
     this.config = config
-    this.commands = new CommandManager(config, this.client)
+
     this.database = new DatabaseManager()
+    this.commands = new CommandManager(config, this.client, this.database)
   }
 
   run () {

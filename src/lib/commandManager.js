@@ -2,9 +2,10 @@ const path = require('path')
 const fs   = require('fs')
 
 module.exports = class CommandManager {
-  constructor (config, client) {
+  constructor (config, client, database) {
     this.config = config
     this.client = client
+    this.database = database
 
     this.commands = this.collectCommands()
     this.setupCommands()
@@ -22,6 +23,8 @@ module.exports = class CommandManager {
       }
 
       commands[command.event][command.name] = command
+
+      this.addCommandToDatabase(command.name)
     }
 
     if (this.config.get('additionalCommands').enabled) {
@@ -54,8 +57,32 @@ module.exports = class CommandManager {
       commands.forEach((command) => {
         const cmd = this.commands[event][command]
 
-        this.client.on(event, (...args) => cmd.execute(args, this.config))
+        this.client.on(event, (...args) => {
+          this.isCommandEnabled(cmd.name).then((result) => {
+            if (result) {
+              cmd.execute(args, this.config, this.database)
+            }
+          })
+        })
       })
     })
+  }
+
+  addCommandToDatabase (commandName) {
+    const Command = this.database.models.Command
+
+    Command.findOrCreate({ where: { name: commandName }})
+  }
+
+  isCommandEnabled (commandName) {
+    const Command = this.database.models.Command
+
+    return Command
+      .findOne({ where: { name: commandName, enabled: true } })
+      .then((command) => {
+        if (command === null) return false
+
+        return true
+      })
   }
 }
