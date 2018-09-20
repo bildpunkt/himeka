@@ -3,5 +3,6 @@
   "additionalCommands": {
     "enabled": false,
     "path": "./additional/"
-  }
+  },
+  "prefix": "!"
 }
