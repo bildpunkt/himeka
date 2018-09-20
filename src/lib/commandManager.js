@@ -1,6 +1,8 @@
 const path = require('path')
 const fs   = require('fs')
 
+const isCommandEnabled = require('../utilities/isCommandEnabled')
+
 module.exports = class CommandManager {
   constructor (config, client, database) {
     this.config = config
@@ -58,9 +60,9 @@ module.exports = class CommandManager {
         const cmd = this.commands[event][command]
 
         this.client.on(event, (...args) => {
-          this.isCommandEnabled(cmd.name).then((result) => {
+          isCommandEnabled(cmd.name).then((result) => {
             if (result) {
-              cmd.execute(args, this.config, this.database)
+              cmd.execute(args, this.config)
             }
           })
         })
@@ -72,17 +74,5 @@ module.exports = class CommandManager {
     const Command = this.database.models.Command
 
     Command.findOrCreate({ where: { name: commandName }})
-  }
-
-  isCommandEnabled (commandName) {
-    const Command = this.database.models.Command
-
-    return Command
-      .findOne({ where: { name: commandName, enabled: true } })
-      .then((command) => {
-        if (command === null) return false
-
-        return true
-      })
   }
 }
