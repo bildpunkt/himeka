@@ -4,6 +4,8 @@ const DatabaseManager = require('../lib/databaseManager')
 const database = new DatabaseManager()
 const Command = database.models.Command
 
+const DISABLE_BLACKLIST = ['enable', 'disable']
+
 module.exports = {
   name: 'disable',
   description: 'Disable a command from being able to be used!',
@@ -19,6 +21,11 @@ module.exports = {
     const cmdName = cmdArgs[0]
     
     if (command === 'disable') {
+      if (DISABLE_BLACKLIST.includes(cmdName)) {
+        message.channel.send(`You can't disable this command, nice try!`)
+        return false
+      }
+      
       isAdmin(message.author.id).then((result) => {
         if (result) {
           return Command
