@@ -42,6 +42,8 @@ module.exports = class CommandManager {
         }
   
         commands[command.event][command.name] = command
+
+        this.addCommandToDatabase(command.name)
       }
     }
 
