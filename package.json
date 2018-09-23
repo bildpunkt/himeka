@@ -25,8 +25,7 @@
     "discord.js": "^11.4.2",
     "meow": "^5.0.0",
     "sequelize": "^4.38.1",
-    "sequelize-cli": "^4.1.1",
-    "sqlite3": "^4.0.2"
+    "sequelize-cli": "^4.1.1"
   },
   "devDependencies": {
     "eslint": "^5.3.0",
@@ -36,5 +35,11 @@
     "eslint-plugin-promise": "^4.0.1",
     "eslint-plugin-standard": "^4.0.0",
     "prettier-eslint": "^8.8.2"
+  },
+  "peerDependencies": {
+    "sqlite3": "^4.0.2",
+    "tedious": "^2.6.4",
+    "mysql2": "^1.6.1",
+    "pg": "^7.4.3"
   }
 }
