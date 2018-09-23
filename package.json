@@ -5,6 +5,9 @@
   "main": "index.js",
   "scripts": {
     "start": "node index.js",
+    "sequelize": "./node_modules/.bin/sequelize",
+    "eslint": "./node_modules/.bin/eslint */**.js",
+    "eslint:fix": "./node_modules/.bin/eslint */**.js --fix",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
