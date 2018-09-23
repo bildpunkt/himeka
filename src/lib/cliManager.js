@@ -22,12 +22,12 @@ module.exports = class CLIManager {
           },
           addAdmin: {
             type: 'string'
-          } 
+          }
         }
       }
     )
 
-    Object.assign(this, this.cli) 
+    Object.assign(this, this.cli)
 
     this.processCliInput()
   }
@@ -37,18 +37,19 @@ module.exports = class CLIManager {
       const Admin = this.database.models.Admin
 
       Admin.findOne({
-        where: { snowflake: this.cli.flags['addAdmin'] },
+        where: { snowflake: this.cli.flags['addAdmin'] }
       }).then(admin => {
         if (admin !== null) {
-          console.log(`User ID ${this.cli.flags['addAdmin']} is already an Admin`)
+          console.log(
+            `User ID ${this.cli.flags['addAdmin']} is already an Admin`
+          )
           process.exit(1)
         }
 
-        Admin.create({ snowflake: this.cli.flags['addAdmin'] })
-            .then(() => {
-              console.log(`User with ID ${this.cli.flags['addAdmin']} set as Admin`)
-              process.exit(0)
-            })
+        Admin.create({ snowflake: this.cli.flags['addAdmin'] }).then(() => {
+          console.log(`User with ID ${this.cli.flags['addAdmin']} set as Admin`)
+          process.exit(0)
+        })
       })
     }
   }

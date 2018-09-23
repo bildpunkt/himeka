@@ -6,7 +6,7 @@ module.exports = class MessageCommand extends AbstractCommand {
     super(args, config)
 
     this.message = args[0]
-    
+
     this.requireCommandPrefix = false
     this.commandName = null
 
@@ -25,14 +25,19 @@ module.exports = class MessageCommand extends AbstractCommand {
     let messageArguments = null
 
     if (this.requireCommandPrefix) {
-      if (!this.message.content.startsWith(this.config.get('prefix')) || this.message.author.bot) return false
+      if (
+        !this.message.content.startsWith(this.config.get('prefix')) ||
+        this.message.author.bot
+      ) { return false }
 
-      messageArguments = this.message.content.slice(this.config.get('prefix').length).split(/ +/)
+      messageArguments = this.message.content
+        .slice(this.config.get('prefix').length)
+        .split(/ +/)
       const commandName = messageArguments.shift().toLowerCase()
-      
+
       if (this.commandName === commandName) {
         if (this.requireAdmin) {
-          isAdmin(this.message.author.id).then((result) => {
+          isAdmin(this.message.author.id).then(result => {
             if (result) {
               this.command()
             }
@@ -43,7 +48,7 @@ module.exports = class MessageCommand extends AbstractCommand {
       }
     } else {
       if (this.requireAdmin) {
-        isAdmin(this.message.author.id).then((result) => {
+        isAdmin(this.message.author.id).then(result => {
           if (result) {
             this.command()
           }
@@ -54,7 +59,5 @@ module.exports = class MessageCommand extends AbstractCommand {
     }
   }
 
-  command () {
-
-  }
+  command () {}
 }

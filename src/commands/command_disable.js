@@ -20,7 +20,9 @@ module.exports = class DisableCommand extends MessageCommand {
   }
 
   command () {
-    const messageArguments = this.message.content.slice(this.config.get('prefix').length).split(/ +/)
+    const messageArguments = this.message.content
+      .slice(this.config.get('prefix').length)
+      .split(/ +/)
     const cmdName = messageArguments[1]
 
     if (DISABLE_BLACKLIST.includes(cmdName)) {
@@ -28,9 +30,8 @@ module.exports = class DisableCommand extends MessageCommand {
       return false
     }
 
-    Command
-      .findOne({ where: { name: cmdName } })
-      .then((command) => {
+    Command.findOne({ where: { name: cmdName } })
+      .then(command => {
         if (command === null) {
           this.message.channel.send('Command does not exist!')
           throw new Error()
@@ -41,11 +42,14 @@ module.exports = class DisableCommand extends MessageCommand {
           throw new Error()
         }
 
-        command.updateAttributes({
-          enabled: false
-        }).then(() => {
-          this.message.channel.send(`Command \`${cmdName}\` is now disabled!`)
-        })
-      }).catch(Error, () => {})
+        command
+          .updateAttributes({
+            enabled: false
+          })
+          .then(() => {
+            this.message.channel.send(`Command \`${cmdName}\` is now disabled!`)
+          })
+      })
+      .catch(Error, () => {})
   }
 }

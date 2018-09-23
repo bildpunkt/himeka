@@ -18,12 +18,13 @@ module.exports = class EnableCommand extends MessageCommand {
   }
 
   command () {
-    const messageArguments = this.message.content.slice(this.config.get('prefix').length).split(/ +/)
+    const messageArguments = this.message.content
+      .slice(this.config.get('prefix').length)
+      .split(/ +/)
     const cmdName = messageArguments[1]
 
-    Command
-      .findOne({ where: { name: cmdName } })
-      .then((command) => {
+    Command.findOne({ where: { name: cmdName } })
+      .then(command => {
         if (command === null) {
           this.message.channel.send('Command does not exist!')
           throw new Error()
@@ -34,11 +35,14 @@ module.exports = class EnableCommand extends MessageCommand {
           throw new Error()
         }
 
-        command.updateAttributes({
-          enabled: true
-        }).then(() => {
-          this.message.channel.send(`Command \`${cmdName}\` is now enabled!`)
-        })
-      }).catch(Error, () => {})
+        command
+          .updateAttributes({
+            enabled: true
+          })
+          .then(() => {
+            this.message.channel.send(`Command \`${cmdName}\` is now enabled!`)
+          })
+      })
+      .catch(Error, () => {})
   }
 }
