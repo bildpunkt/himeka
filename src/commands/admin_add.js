@@ -1,40 +1,38 @@
-const isAdmin = require('../utilities/isAdmin')
+const MessageCommand = require('../lib/commands/messageCommand')
 
 const DatabaseManager = require('../lib/databaseManager')
 const database = new DatabaseManager()
 const Admin = database.models.Admin
 
-module.exports = {
-  name: 'add-admin',
-  description: 'Add an admin to the bot!',
-  event: 'message',
-  execute(args, config) {
-    const message = args[0]
+module.exports = class AddAdminCommand extends MessageCommand {
+  constructor (args, config) {
+    super(args, config)
 
-    if (!message.content.startsWith(config.get('prefix')) || message.author.bot) return false
+    this.requireCommandPrefix = true
+    this.requireAdmin = true
+    this.commandName = 'add-admin'
+  }
 
-    const cmdArgs = message.content.slice(config.get('prefix').length).split(/ +/);
-    const command = cmdArgs.shift().toLowerCase();
+  static name () {
+    return 'add-admin'
+  }
 
-    const userID = cmdArgs[0]
-    
-    if (command === 'add-admin') {
-      isAdmin(message.author.id).then((result) => {
-        if (result) {
-          return Admin
-                  .findOne({ where: { snowflake: userID } })
-        }
-      }).then((admin) => {
+  command () {
+    const messageArguments = this.message.content.slice(this.config.get('prefix').length).split(/ +/)
+    const userID = messageArguments[1]
+
+    Admin
+      .findOne({ where: { snowflake: userID } })
+      .then((admin) => {
         if (admin !== null) {
-          message.channel.send('User is already an admin!')
+          this.message.channel.send('User is already an admin!')
           throw new Error()
         }
 
         Admin.create({ snowflake: userID })
           .then(() => {
-            message.channel.send(`User with ID ${userID} is now an admin!`)
+            this.message.channel.send(`User with ID ${userID} is now an admin!`)
           })
       }).catch(Error, () => {})
-    }
-  },
+  }
 }

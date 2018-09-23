@@ -20,13 +20,13 @@ module.exports = class CommandManager {
     for (const file of commandFiles) {
       const command = require(path.join(__dirname, '../commands', file))
 
-      if (commands[command.event] == undefined) {
-        commands[command.event] = {}
+      if (commands[command.event()] == undefined) {
+        commands[command.event()] = {}
       }
 
-      commands[command.event][command.name] = command
+      commands[command.event()][command.name()] = command
 
-      this.addCommandToDatabase(command.name)
+      this.addCommandToDatabase(command.name())
     }
 
     if (this.config.get('additionalCommands').enabled) {
@@ -37,13 +37,13 @@ module.exports = class CommandManager {
       for (const file of additionalCommandFiles) {
         const command = require(path.join(__dirname, '../..', this.config.get('additionalCommands').path, file))
   
-        if (commands[command.event] == undefined) {
-          commands[command.event] = {}
+        if (commands[command.event()] == undefined) {
+          commands[command.event()] = {}
         }
   
-        commands[command.event][command.name] = command
+        commands[command.event()][command.name()] = command
 
-        this.addCommandToDatabase(command.name)
+        this.addCommandToDatabase(command.name())
       }
     }
 
@@ -62,9 +62,9 @@ module.exports = class CommandManager {
         const cmd = this.commands[event][command]
 
         this.client.on(event, (...args) => {
-          isCommandEnabled(cmd.name).then((result) => {
+          isCommandEnabled(cmd.name()).then((result) => {
             if (result) {
-              cmd.execute(args, this.config)
+              (new cmd(args, this.config)).execute()
             }
           })
         })

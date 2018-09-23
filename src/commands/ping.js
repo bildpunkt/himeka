@@ -1,12 +1,19 @@
-module.exports = {
-  name: 'ping',
-  description: 'Ping!',
-  event: 'message',
-  execute(args, config) {
-    const message = args[0]
-    
-    if (message.content === 'ping') {
-      message.channel.send('pong')
+const MessageCommand = require('../lib/commands/messageCommand')
+
+module.exports = class PingCommand extends MessageCommand {
+  constructor (args, config) {
+    super(args, config)
+
+    this.requireAdmin = true
+  }
+
+  static name () {
+    return 'ping'
+  }
+
+  command () {
+    if (this.message.content === 'ping') {
+      this.message.channel.send('pong')
     }
-  },
+  }
 }
