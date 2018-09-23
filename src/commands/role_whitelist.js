@@ -4,7 +4,7 @@ const DatabaseManager = require('../lib/databaseManager')
 const database = new DatabaseManager()
 const Role = database.models.Role
 
-module.exports = class EnableCommand extends MessageCommand {
+module.exports = class RoleWhitelistCommand extends MessageCommand {
   constructor (args, config) {
     super(args, config)
 
