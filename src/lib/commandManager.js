@@ -3,7 +3,21 @@ const fs = require('fs')
 
 const isCommandEnabled = require('../utilities/isCommandEnabled')
 
+/**
+ * CommandManager
+ *
+ * Management utility to handle commands
+ */
 module.exports = class CommandManager {
+  /**
+   * Constructor
+   *
+   * @param {ConfigManager} config - instance of ConfigManager
+   * @param {DiscordClient} client - instance of Discord.Client
+   * @param {DatabaseManager} database - instance of DatabaseManager
+   *
+   * @inner {object} commands - mapped event/command object
+   */
   constructor (config, client, database) {
     this.config = config
     this.client = client
@@ -13,6 +27,11 @@ module.exports = class CommandManager {
     this.setupCommands()
   }
 
+  /**
+   * Function to collect all commands from all locations
+   *
+   * @returns {object} mapped object of events and commands
+   */
   collectCommands () {
     let commands = {}
     const commandFiles = fs
@@ -63,6 +82,10 @@ module.exports = class CommandManager {
     return commands
   }
 
+  /**
+   * Function to set up all command listeners for their
+   * defined events
+   */
   setupCommands () {
     const events = Object.keys(this.commands)
 
@@ -85,6 +108,11 @@ module.exports = class CommandManager {
     })
   }
 
+  /**
+   * Adds a command to the database
+   *
+   * @param {string} commandName
+   */
   addCommandToDatabase (commandName) {
     const Command = this.database.models.Command
 
