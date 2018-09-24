@@ -1,7 +1,18 @@
 const meow = require('meow')
 const DatabaseManager = require('./databaseManager')
 
+/**
+ * CLIManager
+ *
+ * Management utility for handling CLI options
+ */
 module.exports = class CLIManager {
+  /**
+   * Constructor
+   *
+   * @inner {DatabaseManager} database - instance of DatabaseManager
+   * @inner {meow} cli - instance of meow
+   */
   constructor () {
     this.database = new DatabaseManager()
 
@@ -32,6 +43,11 @@ module.exports = class CLIManager {
     this.processCliInput()
   }
 
+  /**
+   * processCliInput
+   *
+   * Main function to handle CLI flags
+   */
   processCliInput () {
     if (this.cli.flags['addAdmin']) {
       const Admin = this.database.models.Admin
