@@ -18,8 +18,6 @@ module.exports = class AbstractCommand {
 
   /**
    * Name of the command
-   *
-   * This is static because we have no properties in ES6 classes
    */
   static name () {
     return 'abstract-command'
