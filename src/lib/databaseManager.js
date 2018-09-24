@@ -6,7 +6,19 @@ const config = require(path.join(__dirname, '../..', '/config/config.json'))[
   env
 ]
 
+/**
+ * DatabaseManager
+ *
+ * Management utility for database actions
+ */
 module.exports = class DatabaseManager {
+  /**
+   * Constructor
+   *
+   * @inner {Sequelize} Sequelize - Sequelize class
+   * @inner {Sequelize} sequelize - Sequelize instance
+   * @inner {object} models - Object containing model definitions
+   */
   constructor () {
     this.Sequelize = Sequelize
 
@@ -27,6 +39,11 @@ module.exports = class DatabaseManager {
     this.models = this.collectModels()
   }
 
+  /**
+   * Function to collect models from specific folder
+   *
+   * @returns {object} object with model definitions
+   */
   collectModels () {
     let models = {}
 
