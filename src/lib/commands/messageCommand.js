@@ -13,6 +13,7 @@ module.exports = class MessageCommand extends AbstractCommand {
    * @param {array} args - array from arguments from discord.js event
    * @param {ConfigManager} config - ConfigManager instance
    *
+   * @inner {Message} message - Message from the 'message' event
    * @inner {boolean} requireCommandPrefix - if command needs '!cmd'
    * @inner {boolean} requireAdmin - if command requires admin permission
    * @inner {string} commandName - commandName for 'requireCommandPrefix'
