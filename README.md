@@ -29,11 +29,11 @@ Setting up the bot is detailed in the documentation, you can find the relevant d
 
 ### Reporting Bugs / Issues
 
-If you have any issues with Himeka running on a server, please don't hesitate to [open an issue](issues/new). Please provide as much detail as you can on your problem, so it can be replicated and fixed as fast as possible!
+If you have any issues with Himeka running on a server, please don't hesitate to [open an issue](/issues/new). Please provide as much detail as you can on your problem, so it can be replicated and fixed as fast as possible!
 
 ### Requesting Features / New Functionality
 
-Any idea for a new feature for Himeka that might be valuable for all users? Tell us and [open an issue](issues/new) to describe your idea! All ideas are welcome, but depending on their scope and size, we might decide against implementing them. If that's the case, you can still implement them for your own bot instance!
+Any idea for a new feature for Himeka that might be valuable for all users? Tell us and [open an issue](/issues/new) to describe your idea! All ideas are welcome, but depending on their scope and size, we might decide against implementing them. If that's the case, you can still implement them for your own bot instance!
 
 ### Implementing Features
 
