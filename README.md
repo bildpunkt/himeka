@@ -19,6 +19,7 @@ Setting up the bot is detailed in the documentation, you can find the relevant d
 ## Guides
 
 - [Extending the Bot](docs/extending.md)
+- [Commands](docs/commands.md)
 
 ## Known Issues / Planned
 
