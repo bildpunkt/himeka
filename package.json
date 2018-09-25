@@ -1,6 +1,6 @@
 {
   "name": "himeka",
-  "version": "0.0.1",
+  "version": "1.0.0",
   "description": "A multi-purpose Discord bot",
   "main": "index.js",
   "scripts": {
