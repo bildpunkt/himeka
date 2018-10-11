@@ -1,11 +1,13 @@
-const AbstractCommand = require('./abstractCommand').default
+import ConfigManager from '../configManager'
+import AbstractCommand from './abstractCommand'
 
 /**
  * RoleCreateCommand
  *
  * Base class for Discord.Clients 'roleCreate' event
  */
-module.exports = class RoleCreateCommand extends AbstractCommand {
+export default class RoleCreateCommand extends AbstractCommand {
+  role: any
   /**
    * Constructor
    *
@@ -14,7 +16,7 @@ module.exports = class RoleCreateCommand extends AbstractCommand {
    *
    * @inner {Role} role - created role
    */
-  constructor (args, config) {
+  constructor (args: any[], config: ConfigManager) {
     super(args, config)
 
     this.role = args[0]
@@ -23,14 +25,10 @@ module.exports = class RoleCreateCommand extends AbstractCommand {
   /**
    * Name of the command
    */
-  static name () {
-    return 'role-create-event'
-  }
+  public commandName: string = 'role-create-event'
 
   /**
    * Event type of the command
    */
-  static event () {
-    return 'roleCreate'
-  }
+  public static event: string = 'roleCreate'
 }

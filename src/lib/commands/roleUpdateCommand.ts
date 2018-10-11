@@ -1,11 +1,14 @@
-const AbstractCommand = require('./abstractCommand').default
+import ConfigManager from '../configManager'
+import AbstractCommand from './abstractCommand'
 
 /**
  * RoleUpdateCommand
  *
  * Base class for Discord.Clients 'roleUpdate' event
  */
-module.exports = class RoleUpdateCommand extends AbstractCommand {
+export default class RoleUpdateCommand extends AbstractCommand {
+  oldRole: any
+  newRole: any
   /**
    * Constructor
    *
@@ -15,7 +18,7 @@ module.exports = class RoleUpdateCommand extends AbstractCommand {
    * @inner {Role} oldRole - role before update
    * @inner {Role} newRole - role after update
    */
-  constructor (args, config) {
+  constructor (args: any[], config: ConfigManager) {
     super(args, config)
 
     this.oldRole = args[0]
@@ -25,14 +28,10 @@ module.exports = class RoleUpdateCommand extends AbstractCommand {
   /**
    * Name of the command
    */
-  static name () {
-    return 'role-update-event'
-  }
+  public commandName: string = 'role-update-event'
 
   /**
    * Event type of the command
    */
-  static event () {
-    return 'roleUpdate'
-  }
+  public static event: string = 'roleUpdate'
 }
