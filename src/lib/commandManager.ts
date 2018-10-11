@@ -1,28 +1,29 @@
-const path = require('path')
-const fs = require('fs')
+// @ts-check
 
-const isCommandEnabled = require('../utilities/isCommandEnabled')
+import { join } from 'path'
+import { readdirSync } from 'fs'
+import { Client } from 'discord.js'
+
+import isCommandEnabled from '../utilities/isCommandEnabled'
+import ConfigManager from './configManager'
+import DatabaseManager from './databaseManager'
 
 /**
  * CommandManager
  *
  * Management utility to handle commands
  */
-module.exports = class CommandManager {
+export default class CommandManager {
+  private commands: Record<string, any>
+
   /**
    * Constructor
-   *
-   * @param {import('./configManager')} config - instance of ConfigManager
-   * @param {DiscordClient} client - instance of Discord.Client
-   * @param {DatabaseManager} database - instance of DatabaseManager
-   *
-   * @inner {object} commands - mapped event/command object
    */
-  constructor (config, client, database) {
-    this.config = config
-    this.client = client
-    this.database = database
-
+  constructor (
+    private config: ConfigManager,
+    private client: Client,
+    private database: DatabaseManager
+  ) {
     this.commands = this.collectCommands()
     this.setupCommands()
   }
@@ -33,13 +34,13 @@ module.exports = class CommandManager {
    * @returns {object} mapped object of events and commands
    */
   collectCommands () {
-    let commands = {}
-    const commandFiles = fs
-      .readdirSync(path.join(__dirname, '../commands'))
-      .filter(file => file.endsWith('.js'))
+    let commands: Record<string, any> = {}
+    const commandFiles = readdirSync(join(__dirname, '../commands')).filter(
+      file => file.endsWith('.js')
+    )
 
     for (const file of commandFiles) {
-      const command = require(path.join(__dirname, '../commands', file))
+      const command = require(join(__dirname, '../commands', file))
 
       if (commands[command.event()] === undefined) {
         commands[command.event()] = {}
@@ -51,18 +52,12 @@ module.exports = class CommandManager {
     }
 
     if (this.config.get('additionalCommands').enabled) {
-      const additionalCommandFiles = fs
-        .readdirSync(
-          path.join(
-            __dirname,
-            '../..',
-            this.config.get('additionalCommands').path
-          )
-        )
-        .filter(file => file.endsWith('.js'))
+      const additionalCommandFiles = readdirSync(
+        join(__dirname, '../..', this.config.get('additionalCommands').path)
+      ).filter(file => file.endsWith('.js'))
 
       for (const file of additionalCommandFiles) {
-        const command = require(path.join(
+        const command = require(join(
           __dirname,
           '../..',
           this.config.get('additionalCommands').path,
@@ -97,7 +92,7 @@ module.exports = class CommandManager {
       commands.forEach(command => {
         const Cmd = this.commands[event][command]
 
-        this.client.on(event, (...args) => {
+        this.client.on(event, (...args: any[]) => {
           isCommandEnabled(Cmd.name()).then(result => {
             if (result) {
               new Cmd(args, this.config).execute()
@@ -113,7 +108,7 @@ module.exports = class CommandManager {
    *
    * @param {string} commandName
    */
-  addCommandToDatabase (commandName) {
+  addCommandToDatabase (commandName: string) {
     const Command = this.database.models.Command
 
     Command.findOrCreate({ where: { name: commandName } })

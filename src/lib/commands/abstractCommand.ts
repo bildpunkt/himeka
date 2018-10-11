@@ -1,39 +1,26 @@
-/** @typedef {import('../configManager')} ConfigManager */
+import ConfigManager from '../configManager'
 
 /**
  * AbstractCommand
  *
  * Base class for all commands
  */
-module.exports = class AbstractCommand {
+abstract class AbstractCommand {
   /**
    * Constructor
-   *
-   * @param {array} args - array from arguments from discord.js event
-   * @param {ConfigManager} config - ConfigManager instance
    */
-  constructor (args, config) {
-    this.config = config
-
-    this.arguments = args
-  }
+  constructor (protected args: any[], protected config: ConfigManager) {}
 
   /**
    * Name of the command
    */
-  static name () {
-    return 'abstract-command'
-  }
+  public static commandName: string = 'abstract-command'
 
   /**
    * Event type of the command
    * https://discord.js.org/#/docs/main/stable/class/Client
-   *
-   * @throws Error, if not implemented
    */
-  static event () {
-    throw Error('TODO: Not implemented')
-  }
+  public static event: string = 'TODO: Not implemented'
 
   /**
    * Wrapping function for command()
@@ -53,3 +40,5 @@ module.exports = class AbstractCommand {
     throw new Error('TODO: Not implemented')
   }
 }
+
+export default AbstractCommand

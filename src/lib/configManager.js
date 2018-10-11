@@ -1,12 +1,12 @@
-const path = require('path')
-const fs = require('fs')
+import { join } from 'path'
+import { readFileSync } from 'fs'
 
 /**
  * ConfigManager
  *
  * Management utility to handle configuration
  */
-module.exports = class ConfigManager {
+export default class ConfigManager {
   /**
    * Constructor
    *
@@ -22,9 +22,9 @@ module.exports = class ConfigManager {
    * @param {string} configPath - Path to config file
    */
   set config (configPath) {
-    let confPath = path.join(__dirname, '../..', configPath)
+    let confPath = join(__dirname, '../..', configPath)
 
-    this._config = JSON.parse(fs.readFileSync(confPath, { encoding: 'utf-8' }))
+    this._config = JSON.parse(readFileSync(confPath, { encoding: 'utf-8' }))
   }
 
   /**

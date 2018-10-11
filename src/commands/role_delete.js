@@ -1,6 +1,6 @@
 const RoleDeleteCommand = require('../lib/commands/roleDeleteCommand')
 
-const DatabaseManager = require('../lib/databaseManager')
+const DatabaseManager = require('../lib/databaseManager').default
 const database = new DatabaseManager()
 const Role = database.models.Role
 

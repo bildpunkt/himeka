@@ -1,6 +1,6 @@
 const MessageCommand = require('../lib/commands/messageCommand')
 
-const DatabaseManager = require('../lib/databaseManager')
+const DatabaseManager = require('../lib/databaseManager').default
 
 const database = new DatabaseManager()
 const Admin = database.models.Admin

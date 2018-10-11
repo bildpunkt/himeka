@@ -1,6 +1,6 @@
-const ConfigManager = require('./src/lib/configManager')
-const CLIManager = require('./src/lib/cliManager')
-const Himeka = require('./src/himeka')
+import ConfigManager from './src/lib/configManager'
+import CLIManager from './src/lib/cliManager'
+import Himeka from './src/himeka'
 
 const cli = new CLIManager()
 const config = new ConfigManager(cli.flags['config'])

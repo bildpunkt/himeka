@@ -1,4 +1,4 @@
-const AbstractCommand = require('./abstractCommand')
+const AbstractCommand = require('./abstractCommand').default
 
 /**
  * RoleUpdateCommand
