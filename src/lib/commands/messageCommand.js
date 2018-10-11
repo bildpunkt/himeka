@@ -1,12 +1,12 @@
-const AbstractCommand = require('./abstractCommand')
-const isAdmin = require('../../utilities/isAdmin')
+import AbstractCommand from './abstractCommand'
+import isAdmin from '../../utilities/isAdmin'
 
 /**
  * MessageCommand
  *
  * Base class for Discord.Clients 'message' event
  */
-module.exports = class MessageCommand extends AbstractCommand {
+export default class MessageCommand extends AbstractCommand {
   /**
    * Constructor
    *

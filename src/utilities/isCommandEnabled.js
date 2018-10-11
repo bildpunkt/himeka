@@ -1,6 +1,6 @@
 // @ts-check
 
-const DatabaseManager = require('../lib/databaseManager')
+import DatabaseManager from '../lib/databaseManager'
 const database = new DatabaseManager()
 const Command = database.models.Command
 
@@ -17,4 +17,4 @@ function isCommandEnabled (commandName) {
   )
 }
 
-module.exports = isCommandEnabled
+export default isCommandEnabled

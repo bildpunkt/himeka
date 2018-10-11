@@ -1,23 +1,21 @@
 // @ts-check
 
-const Discord = require('discord.js')
-const CommandManager = require('./lib/commandManager')
-const DatabaseManager = require('./lib/databaseManager')
-
-/** @typedef {import('./lib/configManager')} ConfigManager */
+import { Client } from 'discord.js'
+import CommandManager from './lib/commandManager'
+import DatabaseManager from './lib/databaseManager'
 
 /**
  * Himeka
  *
  * Main class for the Discord bot
  */
-module.exports = class Himeka {
+export default class Himeka {
   /**
    * @constructor
-   * @param {ConfigManager} config - instance of ConfigManager
+   * @param {*} config - instance of ConfigManager
    */
   constructor (config) {
-    this.client = new Discord.Client()
+    this.client = new Client()
     this.config = config
 
     this.database = new DatabaseManager()

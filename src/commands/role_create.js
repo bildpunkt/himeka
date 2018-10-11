@@ -1,6 +1,6 @@
 const RoleCreateCommand = require('../lib/commands/roleCreateCommand')
 
-const DatabaseManager = require('../lib/databaseManager')
+const DatabaseManager = require('../lib/databaseManager').default
 const database = new DatabaseManager()
 const Role = database.models.Role
 

@@ -1,14 +1,14 @@
 // @ts-check
 
-const meow = require('meow')
-const DatabaseManager = require('./databaseManager')
+import * as meow from 'meow'
+import DatabaseManager from './databaseManager'
 
 /**
  * CLIManager
  *
  * Management utility for handling CLI options
  */
-module.exports = class CLIManager {
+export default class CLIManager {
   /**
    * Constructor
    *
