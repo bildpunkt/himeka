@@ -1,3 +1,5 @@
+/** @typedef {import('../configManager')} ConfigManager */
+
 /**
  * AbstractCommand
  *

@@ -7,22 +7,26 @@ const config = require(path.join(__dirname, '../..', '/config/config.json'))[
 ]
 
 /**
+ * @typedef {import('sequelize').Sequelize} SequelizeInstance
+ * @typedef {import('sequelize').ModelsHashInterface} ModelsHashInterface
+ */
+
+/**
  * DatabaseManager
  *
  * Management utility for database actions
  */
 module.exports = class DatabaseManager {
   /**
-   * Constructor
-   *
-   * @inner {Sequelize} Sequelize - Sequelize class
-   * @inner {Sequelize} sequelize - Sequelize instance
-   * @inner {object} models - Object containing model definitions
+   * @constructor
    */
   constructor () {
-    this.Sequelize = Sequelize
-
     if (config.use_env_variable) {
+      /**
+       * Sequelize instance
+       *
+       * @type {SequelizeInstance}
+       */
       this.sequelize = new Sequelize(
         process.env[config.use_env_variable],
         config
@@ -36,15 +40,21 @@ module.exports = class DatabaseManager {
       )
     }
 
+    /**
+     * Object containing model definition
+     *
+     * @type {ModelsHashInterface}
+     */
     this.models = this.collectModels()
   }
 
   /**
    * Function to collect models from specific folder
    *
-   * @returns {object} object with model definitions
+   * @returns {ModelsHashInterface} object with model definitions
    */
   collectModels () {
+    /** @type {ModelsHashInterface} */
     let models = {}
 
     fs.readdirSync(path.join(__dirname, '..', 'database', 'models'))

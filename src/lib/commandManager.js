@@ -12,7 +12,7 @@ module.exports = class CommandManager {
   /**
    * Constructor
    *
-   * @param {ConfigManager} config - instance of ConfigManager
+   * @param {import('./configManager')} config - instance of ConfigManager
    * @param {DiscordClient} client - instance of Discord.Client
    * @param {DatabaseManager} database - instance of DatabaseManager
    *

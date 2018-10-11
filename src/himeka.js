@@ -1,6 +1,10 @@
+// @ts-check
+
 const Discord = require('discord.js')
 const CommandManager = require('./lib/commandManager')
 const DatabaseManager = require('./lib/databaseManager')
+
+/** @typedef {import('./lib/configManager')} ConfigManager */
 
 /**
  * Himeka
@@ -9,17 +13,11 @@ const DatabaseManager = require('./lib/databaseManager')
  */
 module.exports = class Himeka {
   /**
-   * Constructor
-   *
+   * @constructor
    * @param {ConfigManager} config - instance of ConfigManager
-   *
-   * @inner {Discord.Client} client - instance of Discord.Client
-   * @inner {DatabaseManager} database - instance of DatabaseManager
-   * @inner {CommandManager} config - instance of ConfigManager
    */
   constructor (config) {
     this.client = new Discord.Client()
-
     this.config = config
 
     this.database = new DatabaseManager()
