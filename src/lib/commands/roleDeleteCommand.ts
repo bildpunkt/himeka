@@ -1,11 +1,13 @@
-const AbstractCommand = require('./abstractCommand').default
+import ConfigManager from '../configManager'
+import AbstractCommand from './abstractCommand'
 
 /**
  * RoleDeleteCommand
  *
  * Base class for Discord.Clients 'roleDelete' event
  */
-module.exports = class RoleDeleteCommand extends AbstractCommand {
+export default class RoleDeleteCommand extends AbstractCommand {
+  role: any
   /**
    * Constructor
    *
@@ -14,7 +16,7 @@ module.exports = class RoleDeleteCommand extends AbstractCommand {
    *
    * @inner {Role} role - deleted role
    */
-  constructor (args, config) {
+  constructor (args: any[], config: ConfigManager) {
     super(args, config)
 
     this.role = args[0]
@@ -23,14 +25,10 @@ module.exports = class RoleDeleteCommand extends AbstractCommand {
   /**
    * Name of the command
    */
-  static name () {
-    return 'role-delete-event'
-  }
+  public commandName: string = 'role-delete-event'
 
   /**
    * Event type of the command
    */
-  static event () {
-    return 'roleDelete'
-  }
+  public static event: string = 'roleDelete'
 }

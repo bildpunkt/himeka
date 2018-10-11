@@ -1,3 +1,4 @@
+import ConfigManager from '../configManager'
 import AbstractCommand from './abstractCommand'
 import isAdmin from '../../utilities/isAdmin'
 
@@ -7,6 +8,7 @@ import isAdmin from '../../utilities/isAdmin'
  * Base class for Discord.Clients 'message' event
  */
 export default class MessageCommand extends AbstractCommand {
+  message: any
   /**
    * Constructor
    *
@@ -18,30 +20,31 @@ export default class MessageCommand extends AbstractCommand {
    * @inner {boolean} requireAdmin - if command requires admin permission
    * @inner {string} commandName - commandName for 'requireCommandPrefix'
    */
-  constructor (args, config) {
+  constructor (args: Array<any>, config: ConfigManager) {
     super(args, config)
 
     this.message = args[0]
-
-    this.requireCommandPrefix = false
-    this.commandName = null
-
-    this.requireAdmin = false
   }
 
   /**
    * Name of the command
    */
-  static name () {
-    return 'message-event'
-  }
+  public commandName: string = 'message-event'
 
   /**
    * Event type of the command
    */
-  static event () {
-    return 'message'
-  }
+  public static event: string = 'message'
+
+  /**
+   * Enables a check if '!{commandName}' is required in front of a message for this command
+   */
+  public requireCommandPrefix: boolean = false
+
+  /**
+   * Enables a check that requires the user to trigger the event to be an admin
+   */
+  public requireAdmin: boolean = false
 
   /**
    * Wrapping function for command()

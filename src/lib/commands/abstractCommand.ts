@@ -14,7 +14,7 @@ abstract class AbstractCommand {
   /**
    * Name of the command
    */
-  public static commandName: string = 'abstract-command'
+  public commandName: string = 'abstract-command'
 
   /**
    * Event type of the command
