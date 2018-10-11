@@ -1,3 +1,5 @@
+// @ts-check
+
 const meow = require('meow')
 const DatabaseManager = require('./databaseManager')
 
@@ -20,7 +22,7 @@ module.exports = class CLIManager {
       `
       Usage:
         $ npm start [-- {options}]
-    
+
       Options:
         --config, -c  Specify a different config path
       `,

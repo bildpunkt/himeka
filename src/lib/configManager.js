@@ -30,7 +30,7 @@ module.exports = class ConfigManager {
   /**
    * Getter for config
    *
-   * @returns {object} config
+   * @returns {*} config
    */
   get config () {
     return this._config
@@ -40,8 +40,7 @@ module.exports = class ConfigManager {
    * Get function to get data from configuration
    *
    * @param {string} key - key to get from the config file
-   *
-   * @returns {variable} value
+   * @returns {*} value
    */
   get (key) {
     return this.config[key]
