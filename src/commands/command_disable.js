@@ -1,13 +1,13 @@
-const MessageCommand = require('../lib/commands/messageCommand')
+import MessageCommand from '../lib/commands/messageCommand'
+import DatabaseManager from '../lib/databaseManager'
 
-const DatabaseManager = require('../lib/databaseManager').default
 const database = new DatabaseManager()
-const Command = database.models.Command
+const { Command } = database.models
 
 const DISABLE_BLACKLIST = ['enable', 'disable']
 
-module.exports = class DisableCommand extends MessageCommand {
-  constructor (args, config) {
+export default class DisableCommand extends MessageCommand {
+  constructor(args, config) {
     super(args, config)
 
     this.requireCommandPrefix = true
@@ -15,11 +15,7 @@ module.exports = class DisableCommand extends MessageCommand {
     this.commandName = 'disable'
   }
 
-  static name () {
-    return 'disable'
-  }
-
-  command () {
+  command() {
     const messageArguments = this.message.content
       .slice(this.config.get('prefix').length)
       .split(/ +/)

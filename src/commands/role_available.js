@@ -2,21 +2,21 @@ const MessageCommand = require('../lib/commands/messageCommand')
 
 const DatabaseManager = require('../lib/databaseManager').default
 const database = new DatabaseManager()
-const Role = database.models.Role
+const { Role } = database.models
 
 module.exports = class RoleAvailableCommand extends MessageCommand {
-  constructor (args, config) {
+  constructor(args, config) {
     super(args, config)
 
     this.requireCommandPrefix = true
     this.commandName = 'available-roles'
   }
 
-  static name () {
+  static name() {
     return 'available-roles'
   }
 
-  command () {
+  command() {
     Role.findAll({ where: { whitelisted: true } })
       .then(roles => {
         if (roles.length === 0) {

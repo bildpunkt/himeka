@@ -1,15 +1,15 @@
-const RoleCreateCommand = require('../lib/commands/roleCreateCommand')
+import RoleCreateCommand from '../lib/commands/roleCreateCommand'
+import DatabaseManager from '../lib/databaseManager'
 
-const DatabaseManager = require('../lib/databaseManager').default
 const database = new DatabaseManager()
-const Role = database.models.Role
+const { Role } = database.models
 
-module.exports = class RoleCreateEventCommand extends RoleCreateCommand {
-  static name () {
+export default class RoleCreateEventCommand extends RoleCreateCommand {
+  static name() {
     return 'role-create-event'
   }
 
-  command () {
+  command() {
     Role.findOrCreate({
       where: {
         name: this.role.name,

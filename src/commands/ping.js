@@ -1,17 +1,14 @@
-const MessageCommand = require('../lib/commands/messageCommand')
+import MessageCommand from '../lib/commands/messageCommand'
 
-module.exports = class PingCommand extends MessageCommand {
-  constructor (args, config) {
+export default class PingCommand extends MessageCommand {
+  constructor(args, config) {
     super(args, config)
 
     this.requireAdmin = true
+    this.commandName = 'ping'
   }
 
-  static name () {
-    return 'ping'
-  }
-
-  command () {
+  command() {
     if (this.message.content === 'ping') {
       this.message.channel.send('pong')
     }

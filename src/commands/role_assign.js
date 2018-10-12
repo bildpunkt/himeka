@@ -1,22 +1,22 @@
-const MessageCommand = require('../lib/commands/messageCommand')
+import MessageCommand from '../lib/commands/messageCommand'
+import DatabaseManager from '../lib/databaseManager'
 
-const DatabaseManager = require('../lib/databaseManager').default
 const database = new DatabaseManager()
-const Role = database.models.Role
+const { Role } = database.models
 
-module.exports = class RoleAssignCommand extends MessageCommand {
-  constructor (args, config) {
+export default class RoleAssignCommand extends MessageCommand {
+  constructor(args, config) {
     super(args, config)
 
     this.requireCommandPrefix = true
     this.commandName = 'assign-role'
   }
 
-  static name () {
+  static name() {
     return 'assign-role'
   }
 
-  command () {
+  command() {
     const messageArguments = this.message.content
       .slice(this.config.get('prefix').length)
       .split(/ +/)
