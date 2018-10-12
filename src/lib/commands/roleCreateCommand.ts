@@ -1,3 +1,5 @@
+import { Role } from 'discord.js'
+
 import ConfigManager from '../configManager'
 import AbstractCommand from './abstractCommand'
 
@@ -7,7 +9,11 @@ import AbstractCommand from './abstractCommand'
  * Base class for Discord.Clients 'roleCreate' event
  */
 export default class RoleCreateCommand extends AbstractCommand {
-  role: any
+  /**
+   * Created role
+   */
+  public role: Role
+
   /**
    * Constructor
    *
@@ -16,7 +22,7 @@ export default class RoleCreateCommand extends AbstractCommand {
    *
    * @inner {Role} role - created role
    */
-  constructor (args: any[], config: ConfigManager) {
+  constructor(args: any[], config: ConfigManager) {
     super(args, config)
 
     this.role = args[0]
@@ -30,5 +36,5 @@ export default class RoleCreateCommand extends AbstractCommand {
   /**
    * Event type of the command
    */
-  public static event: string = 'roleCreate'
+  public event: string = 'roleCreate'
 }

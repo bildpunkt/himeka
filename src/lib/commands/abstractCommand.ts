@@ -6,10 +6,16 @@ import ConfigManager from '../configManager'
  * Base class for all commands
  */
 abstract class AbstractCommand {
+  protected args: any[]
+  protected config: ConfigManager
+
   /**
    * Constructor
    */
-  constructor (protected args: any[], protected config: ConfigManager) {}
+  constructor(args: any[], config: ConfigManager) {
+    this.args = args
+    this.config = config
+  }
 
   /**
    * Name of the command
@@ -20,7 +26,21 @@ abstract class AbstractCommand {
    * Event type of the command
    * https://discord.js.org/#/docs/main/stable/class/Client
    */
-  public static event: string = 'TODO: Not implemented'
+  public event: string = 'TODO: Not implemented'
+
+  /**
+   * Getter for the command name.
+   */
+  get name() {
+    return this.commandName
+  }
+
+  /**
+   * Setter for the command name.
+   */
+  set name(commandName: string) {
+    this.commandName = commandName
+  }
 
   /**
    * Wrapping function for command()
@@ -28,7 +48,7 @@ abstract class AbstractCommand {
    * Put code here that handles superficial stuff users don't
    * need to mess with
    */
-  execute () {
+  execute() {
     this.command()
   }
 
@@ -36,7 +56,7 @@ abstract class AbstractCommand {
    * Code relevant to commands, which needs to be written in
    * extended classes from this one
    */
-  command () {
+  command() {
     throw new Error('TODO: Not implemented')
   }
 }

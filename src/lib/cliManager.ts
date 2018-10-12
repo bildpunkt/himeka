@@ -16,7 +16,7 @@ export default class CLIManager {
    * @inner {DatabaseManager} database - instance of DatabaseManager
    * @inner {meow} cli - instance of meow
    */
-  constructor () {
+  constructor() {
     this.database = new DatabaseManager()
 
     this.cli = meow(
@@ -51,7 +51,7 @@ export default class CLIManager {
    *
    * Main function to handle CLI flags
    */
-  processCliInput () {
+  processCliInput() {
     if (this.cli.flags['addAdmin']) {
       const Admin = this.database.models.Admin
 
