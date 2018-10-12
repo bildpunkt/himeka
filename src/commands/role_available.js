@@ -12,10 +12,6 @@ module.exports = class RoleAvailableCommand extends MessageCommand {
     this.commandName = 'available-roles'
   }
 
-  static name() {
-    return 'available-roles'
-  }
-
   command() {
     Role.findAll({ where: { whitelisted: true } })
       .then(roles => {

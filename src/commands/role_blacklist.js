@@ -13,10 +13,6 @@ export default class RoleBlacklistCommand extends MessageCommand {
     this.commandName = 'blacklist-role'
   }
 
-  static name() {
-    return 'blacklist-role'
-  }
-
   command() {
     const messageArguments = this.message.content
       .slice(this.config.get('prefix').length)

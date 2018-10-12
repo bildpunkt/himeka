@@ -13,10 +13,6 @@ export default class RoleIndexCommand extends MessageCommand {
     this.commandName = 'index-roles'
   }
 
-  static name() {
-    return 'index-roles'
-  }
-
   command() {
     this.message.guild.roles.array().forEach(role => {
       Role.findOrCreate({

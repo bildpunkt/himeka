@@ -5,8 +5,10 @@ const database = new DatabaseManager()
 const { Role } = database.models
 
 export default class RoleUpdateEventCommand extends RoleUpdateCommand {
-  static name() {
-    return 'role-update-event'
+  constructor(args, config) {
+    super(args, config)
+
+    this.commandName = 'role-update-event'
   }
 
   command() {
