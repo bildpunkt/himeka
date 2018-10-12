@@ -1,15 +1,15 @@
-const RoleDeleteCommand = require('../lib/commands/roleDeleteCommand')
+import RoleDeleteCommand from '../lib/commands/roleDeleteCommand'
+import DatabaseManager from '../lib/databaseManager'
 
-const DatabaseManager = require('../lib/databaseManager').default
 const database = new DatabaseManager()
-const Role = database.models.Role
+const { Role } = database.models
 
-module.exports = class RoleDeleteEventCommand extends RoleDeleteCommand {
-  static name () {
+export default class RoleDeleteEventCommand extends RoleDeleteCommand {
+  static name() {
     return 'role-delete-event'
   }
 
-  command () {
+  command() {
     Role.destroy({
       where: {
         name: this.role.name,

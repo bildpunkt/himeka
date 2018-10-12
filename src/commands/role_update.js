@@ -1,15 +1,15 @@
-const RoleUpdateCommand = require('../lib/commands/roleUpdateCommand')
+import RoleUpdateCommand from '../lib/commands/roleUpdateCommand'
+import DatabaseManager from '../lib/databaseManager'
 
-const DatabaseManager = require('../lib/databaseManager').default
 const database = new DatabaseManager()
-const Role = database.models.Role
+const { Role } = database.models
 
-module.exports = class RoleUpdateEventCommand extends RoleUpdateCommand {
-  static name () {
+export default class RoleUpdateEventCommand extends RoleUpdateCommand {
+  static name() {
     return 'role-update-event'
   }
 
-  command () {
+  command() {
     Role.findOne({
       where: {
         name: this.oldRole.name,

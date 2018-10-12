@@ -1,12 +1,11 @@
-const MessageCommand = require('../lib/commands/messageCommand')
-
-const DatabaseManager = require('../lib/databaseManager').default
+import MessageCommand from '../lib/commands/messageCommand'
+import DatabaseManager from '../lib/databaseManager'
 
 const database = new DatabaseManager()
-const Admin = database.models.Admin
+const { Admin } = database.models
 
-module.exports = class AddAdminCommand extends MessageCommand {
-  constructor (args, config) {
+export default class AddAdminCommand extends MessageCommand {
+  constructor(args, config) {
     super(args, config)
 
     this.requireCommandPrefix = true
@@ -14,11 +13,7 @@ module.exports = class AddAdminCommand extends MessageCommand {
     this.commandName = 'add-admin'
   }
 
-  static name () {
-    return 'add-admin'
-  }
-
-  command () {
+  command() {
     const messageArguments = this.message.content
       .slice(this.config.get('prefix').length)
       .split(/ +/)
