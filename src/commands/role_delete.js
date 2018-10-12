@@ -5,8 +5,10 @@ const database = new DatabaseManager()
 const { Role } = database.models
 
 export default class RoleDeleteEventCommand extends RoleDeleteCommand {
-  static name() {
-    return 'role-delete-event'
+  constructor(args, config) {
+    super(args, config)
+
+    this.commandName = 'role-delete-event'
   }
 
   command() {

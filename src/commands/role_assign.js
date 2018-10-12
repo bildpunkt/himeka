@@ -12,10 +12,6 @@ export default class RoleAssignCommand extends MessageCommand {
     this.commandName = 'assign-role'
   }
 
-  static name() {
-    return 'assign-role'
-  }
-
   command() {
     const messageArguments = this.message.content
       .slice(this.config.get('prefix').length)
