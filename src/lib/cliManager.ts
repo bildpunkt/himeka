@@ -1,5 +1,3 @@
-// @ts-check
-
 import * as meow from 'meow'
 import DatabaseManager from './databaseManager'
 
@@ -9,6 +7,9 @@ import DatabaseManager from './databaseManager'
  * Management utility for handling CLI options
  */
 export default class CLIManager {
+  private database: DatabaseManager
+  private cli: meow.Result
+
   /**
    * Constructor
    *
