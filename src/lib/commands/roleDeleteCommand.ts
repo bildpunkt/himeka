@@ -1,3 +1,4 @@
+import { Role } from 'discord.js'
 import ConfigManager from '../configManager'
 import AbstractCommand from './abstractCommand'
 
@@ -7,7 +8,11 @@ import AbstractCommand from './abstractCommand'
  * Base class for Discord.Clients 'roleDelete' event
  */
 export default class RoleDeleteCommand extends AbstractCommand {
-  role: any
+  /**
+   * Deleted role
+   */
+  public role: Role
+
   /**
    * Constructor
    *
@@ -16,7 +21,7 @@ export default class RoleDeleteCommand extends AbstractCommand {
    *
    * @inner {Role} role - deleted role
    */
-  constructor (args: any[], config: ConfigManager) {
+  constructor(args: any[], config: ConfigManager) {
     super(args, config)
 
     this.role = args[0]

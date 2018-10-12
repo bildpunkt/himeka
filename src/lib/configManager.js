@@ -12,7 +12,7 @@ export default class ConfigManager {
    *
    * @param {string} configPath - Path to config file
    */
-  constructor (configPath) {
+  constructor(configPath) {
     this.config = configPath
   }
 
@@ -21,7 +21,7 @@ export default class ConfigManager {
    *
    * @param {string} configPath - Path to config file
    */
-  set config (configPath) {
+  set config(configPath) {
     let confPath = join(__dirname, '../..', configPath)
 
     this._config = JSON.parse(readFileSync(confPath, { encoding: 'utf-8' }))
@@ -32,7 +32,7 @@ export default class ConfigManager {
    *
    * @returns {*} config
    */
-  get config () {
+  get config() {
     return this._config
   }
 
@@ -42,7 +42,7 @@ export default class ConfigManager {
    * @param {string} key - key to get from the config file
    * @returns {*} value
    */
-  get (key) {
+  get(key) {
     return this.config[key]
   }
 }

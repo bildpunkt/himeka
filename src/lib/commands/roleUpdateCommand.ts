@@ -1,3 +1,5 @@
+import { Role } from 'discord.js'
+
 import ConfigManager from '../configManager'
 import AbstractCommand from './abstractCommand'
 
@@ -7,8 +9,9 @@ import AbstractCommand from './abstractCommand'
  * Base class for Discord.Clients 'roleUpdate' event
  */
 export default class RoleUpdateCommand extends AbstractCommand {
-  oldRole: any
-  newRole: any
+  public oldRole: Role
+  public newRole: Role
+
   /**
    * Constructor
    *
@@ -18,7 +21,7 @@ export default class RoleUpdateCommand extends AbstractCommand {
    * @inner {Role} oldRole - role before update
    * @inner {Role} newRole - role after update
    */
-  constructor (args: any[], config: ConfigManager) {
+  constructor(args: any[], config: ConfigManager) {
     super(args, config)
 
     this.oldRole = args[0]

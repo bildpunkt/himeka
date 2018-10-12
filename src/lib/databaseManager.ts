@@ -17,7 +17,7 @@ export default class DatabaseManager {
   /**
    * @constructor
    */
-  constructor () {
+  constructor() {
     if (config.use_env_variable) {
       /**
        * Sequelize instance
@@ -48,7 +48,7 @@ export default class DatabaseManager {
   /**
    * Function to collect models from specific folder
    */
-  collectModels () {
+  collectModels() {
     let models: Sequelize.ModelsHashInterface = {}
 
     readdirSync(join(__dirname, '..', 'database', 'models'))

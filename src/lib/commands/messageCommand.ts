@@ -1,3 +1,5 @@
+import { Message } from 'discord.js'
+
 import ConfigManager from '../configManager'
 import AbstractCommand from './abstractCommand'
 import isAdmin from '../../utilities/isAdmin'
@@ -8,23 +10,10 @@ import isAdmin from '../../utilities/isAdmin'
  * Base class for Discord.Clients 'message' event
  */
 export default class MessageCommand extends AbstractCommand {
-  message: any
   /**
-   * Constructor
-   *
-   * @param {array} args - array from arguments from discord.js event
-   * @param {ConfigManager} config - ConfigManager instance
-   *
-   * @inner {Message} message - Message from the 'message' event
-   * @inner {boolean} requireCommandPrefix - if command needs '!cmd'
-   * @inner {boolean} requireAdmin - if command requires admin permission
-   * @inner {string} commandName - commandName for 'requireCommandPrefix'
+   * Message from the 'message' event
    */
-  constructor (args: Array<any>, config: ConfigManager) {
-    super(args, config)
-
-    this.message = args[0]
-  }
+  public message: Message
 
   /**
    * Name of the command
@@ -34,7 +23,7 @@ export default class MessageCommand extends AbstractCommand {
   /**
    * Event type of the command
    */
-  public static event: string = 'message'
+  public event: string = 'message'
 
   /**
    * Enables a check if '!{commandName}' is required in front of a message for this command
@@ -47,11 +36,23 @@ export default class MessageCommand extends AbstractCommand {
   public requireAdmin: boolean = false
 
   /**
+   * Constructor
+   *
+   * @param {any[]} args - array from arguments from discord.js event
+   * @param {ConfigManager} config - ConfigManager instance
+   */
+  constructor(args: any[], config: ConfigManager) {
+    super(args, config)
+
+    this.message = args[0]
+  }
+
+  /**
    * Wrapping function for command()
    *
    * Handles `requireCommandPrefix`, `requireAdmin` and `commandName` option
    */
-  execute () {
+  execute() {
     let messageArguments = null
 
     if (this.requireCommandPrefix) {
@@ -65,7 +66,7 @@ export default class MessageCommand extends AbstractCommand {
       messageArguments = this.message.content
         .slice(this.config.get('prefix').length)
         .split(/ +/)
-      const commandName = messageArguments.shift().toLowerCase()
+      const commandName = messageArguments.shift()!.toLowerCase()
 
       if (this.commandName === commandName) {
         if (this.requireAdmin) {
@@ -95,5 +96,5 @@ export default class MessageCommand extends AbstractCommand {
    * Code relevant to commands, which needs to be written in
    * extended classes from this one
    */
-  command () {}
+  command() {}
 }
