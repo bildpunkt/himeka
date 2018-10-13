@@ -1,11 +1,12 @@
-const MessageCommand = require('../lib/commands/messageCommand')
+import MessageCommand from '../lib/commands/messageCommand'
+import DatabaseManager from '../lib/databaseManager'
+import ConfigManager from '../lib/configManager'
 
-const DatabaseManager = require('../lib/databaseManager').default
 const database = new DatabaseManager()
 const { Role } = database.models
 
-module.exports = class RoleAvailableCommand extends MessageCommand {
-  constructor(args, config) {
+export default class RoleAvailableCommand extends MessageCommand {
+  constructor(args: any[], config: ConfigManager) {
     super(args, config)
 
     this.requireCommandPrefix = true

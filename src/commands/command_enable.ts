@@ -1,22 +1,21 @@
 import MessageCommand from '../lib/commands/messageCommand'
 import DatabaseManager from '../lib/databaseManager'
+import ConfigManager from '../lib/configManager'
 
 const database = new DatabaseManager()
 const { Command } = database.models
 
-const DISABLE_BLACKLIST = ['enable', 'disable']
-
-export default class DisableCommand extends MessageCommand {
-  constructor(args, config) {
+export default class EnableCommand extends MessageCommand {
+  constructor(args: any[], config: ConfigManager) {
     super(args, config)
 
     this.requireCommandPrefix = true
     this.requireAdmin = true
-    this.commandName = 'disable'
+    this.commandName = 'enable'
   }
 
   static commandName() {
-    return 'disable'
+    return 'enable'
   }
 
   command() {
@@ -25,11 +24,6 @@ export default class DisableCommand extends MessageCommand {
       .split(/ +/)
     const cmdName = messageArguments[1]
 
-    if (DISABLE_BLACKLIST.includes(cmdName)) {
-      this.message.channel.send(`You can't disable this command, nice try!`)
-      return false
-    }
-
     Command.findOne({ where: { name: cmdName } })
       .then(command => {
         if (command === null) {
@@ -37,17 +31,17 @@ export default class DisableCommand extends MessageCommand {
           throw new Error()
         }
 
-        if (command.enabled === false) {
-          this.message.channel.send('Command is already disabled!')
+        if (command.enabled === true) {
+          this.message.channel.send('Command is already enabled!')
           throw new Error()
         }
 
         command
           .updateAttributes({
-            enabled: false
+            enabled: true
           })
           .then(() => {
-            this.message.channel.send(`Command \`${cmdName}\` is now disabled!`)
+            this.message.channel.send(`Command \`${cmdName}\` is now enabled!`)
           })
       })
       .catch(Error, () => {})
