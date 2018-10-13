@@ -1,7 +1,8 @@
 import MessageCommand from '../lib/commands/messageCommand'
+import ConfigManager from '../lib/configManager'
 
 export default class PingCommand extends MessageCommand {
-  constructor(args, config) {
+  constructor(args: any[], config: ConfigManager) {
     super(args, config)
 
     this.requireAdmin = false

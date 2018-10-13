@@ -5,12 +5,6 @@ const database = new DatabaseManager()
 const { Role } = database.models
 
 export default class RoleCreateEventCommand extends RoleCreateCommand {
-  constructor(args, config) {
-    super(args, config)
-
-    this.commandName = 'role-create-event'
-  }
-
   static commandName() {
     return 'role-create-event'
   }

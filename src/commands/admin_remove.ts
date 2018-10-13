@@ -1,11 +1,12 @@
 import MessageCommand from '../lib/commands/messageCommand'
 import DatabaseManager from '../lib/databaseManager'
+import ConfigManager from '../lib/configManager'
 
 const database = new DatabaseManager()
 const { Admin } = database.models
 
 export default class RemoveAdminCommand extends MessageCommand {
-  constructor(args, config) {
+  constructor(args: any[], config: ConfigManager) {
     super(args, config)
 
     this.requireCommandPrefix = true
