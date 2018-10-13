@@ -8,6 +8,10 @@ export interface IAbstractCommand {
   command(): void
 }
 
+export type HimekaConfig = {
+  [key: string]: any
+}
+
 export type CommandMap = {
   [key: string]: IAbstractCommand
 }
