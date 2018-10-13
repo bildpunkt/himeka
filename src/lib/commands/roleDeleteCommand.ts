@@ -30,10 +30,14 @@ export default class RoleDeleteCommand extends AbstractCommand {
   /**
    * Name of the command
    */
-  public commandName: string = 'role-delete-event'
+  static commandName() {
+    return 'role-delete-event'
+  }
 
   /**
    * Event type of the command
    */
-  public static event: string = 'roleDelete'
+  static event() {
+    return 'roleDelete'
+  }
 }

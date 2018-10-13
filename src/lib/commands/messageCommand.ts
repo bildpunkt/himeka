@@ -18,12 +18,7 @@ export default class MessageCommand extends AbstractCommand {
   /**
    * Name of the command
    */
-  public commandName: string = 'message-event'
-
-  /**
-   * Event type of the command
-   */
-  public event: string = 'message'
+  public commandName: string | null = null
 
   /**
    * Enables a check if '!{commandName}' is required in front of a message for this command
@@ -45,6 +40,20 @@ export default class MessageCommand extends AbstractCommand {
     super(args, config)
 
     this.message = args[0]
+  }
+
+  /**
+   * Name of the command
+   */
+  static commandName() {
+    return 'message-event'
+  }
+
+  /**
+   * Event type of the command
+   */
+  static event() {
+    return 'message'
   }
 
   /**

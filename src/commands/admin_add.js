@@ -13,6 +13,10 @@ export default class AddAdminCommand extends MessageCommand {
     this.commandName = 'add-admin'
   }
 
+  static commandName() {
+    return 'add-admin'
+  }
+
   command() {
     const messageArguments = this.message.content
       .slice(this.config.get('prefix').length)

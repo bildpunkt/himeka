@@ -13,6 +13,10 @@ export default class RemoveAdminCommand extends MessageCommand {
     this.commandName = 'remove-admin'
   }
 
+  static commandName() {
+    return 'remove-admin'
+  }
+
   command() {
     const messageArguments = this.message.content
       .slice(this.config.get('prefix').length)

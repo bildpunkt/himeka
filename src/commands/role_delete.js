@@ -11,6 +11,10 @@ export default class RoleDeleteEventCommand extends RoleDeleteCommand {
     this.commandName = 'role-delete-event'
   }
 
+  static commandName() {
+    return 'role-delete-event'
+  }
+
   command() {
     Role.destroy({
       where: {

@@ -11,6 +11,10 @@ export default class RoleCreateEventCommand extends RoleCreateCommand {
     this.commandName = 'role-create-event'
   }
 
+  static commandName() {
+    return 'role-create-event'
+  }
+
   command() {
     Role.findOrCreate({
       where: {
