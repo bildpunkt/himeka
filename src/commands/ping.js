@@ -4,8 +4,13 @@ export default class PingCommand extends MessageCommand {
   constructor(args, config) {
     super(args, config)
 
-    this.requireAdmin = true
+    this.requireAdmin = false
+    this.requireCommandPrefix = false
     this.commandName = 'ping'
+  }
+
+  static commandName() {
+    return 'ping'
   }
 
   command() {

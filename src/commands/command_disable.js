@@ -15,6 +15,10 @@ export default class DisableCommand extends MessageCommand {
     this.commandName = 'disable'
   }
 
+  static commandName() {
+    return 'disable'
+  }
+
   command() {
     const messageArguments = this.message.content
       .slice(this.config.get('prefix').length)

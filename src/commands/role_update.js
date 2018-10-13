@@ -11,6 +11,10 @@ export default class RoleUpdateEventCommand extends RoleUpdateCommand {
     this.commandName = 'role-update-event'
   }
 
+  static commandName() {
+    return 'role-update-event'
+  }
+
   command() {
     Role.findOne({
       where: {

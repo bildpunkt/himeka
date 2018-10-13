@@ -7,7 +7,7 @@ import { Client } from 'discord.js'
 import isCommandEnabled from '../utilities/isCommandEnabled'
 import ConfigManager from './configManager'
 import DatabaseManager from './databaseManager'
-import AbstractCommand from './commands/abstractCommand'
+import { IAbstractCommand, CommandEventMap } from '../types'
 
 /**
  * CommandManager
@@ -42,47 +42,48 @@ export default class CommandManager {
    * @returns {object} mapped object of events and commands
    */
   collectCommands() {
-    let commands: Record<string, any> = {}
-    const commandFiles = readdirSync(join(__dirname, '../commands')).filter(
-      file => file.endsWith('.js')
-    )
+    let commands: CommandEventMap = {}
+
+    const commandFiles = readdirSync(
+      join(process.cwd(), './src/commands')
+    ).filter(file => file.endsWith('.js'))
 
     for (const file of commandFiles) {
-      const command: AbstractCommand = require(join(
-        __dirname,
-        '../commands',
+      const command: IAbstractCommand = require(join(
+        process.cwd(),
+        './src/commands',
         file
       )).default
 
-      if (commands[command.event] === undefined) {
-        commands[command.event] = {}
+      if (commands[command.event()] === undefined) {
+        commands[command.event()] = {}
       }
 
-      commands[command.event][command.commandName] = command
+      commands[command.event()][command.commandName()] = command
 
-      this.addCommandToDatabase(command.commandName)
+      this.addCommandToDatabase(command.commandName())
     }
 
     if (this.config.get('additionalCommands').enabled) {
       const additionalCommandFiles = readdirSync(
-        join(__dirname, '../..', this.config.get('additionalCommands').path)
+        join(process.cwd(), this.config.get('additionalCommands').path)
       ).filter(file => file.endsWith('.js'))
 
       for (const file of additionalCommandFiles) {
-        const command: AbstractCommand = require(join(
+        const command: IAbstractCommand = require(join(
           __dirname,
           '../..',
           this.config.get('additionalCommands').path,
           file
         )).default
 
-        if (commands[command.event] === undefined) {
-          commands[command.event] = {}
+        if (commands[command.event()] === undefined) {
+          commands[command.event()] = {}
         }
 
-        commands[command.event][command.commandName] = command
+        commands[command.event()][command.commandName()] = command
 
-        this.addCommandToDatabase(command.commandName)
+        this.addCommandToDatabase(command.commandName())
       }
     }
 
@@ -102,10 +103,10 @@ export default class CommandManager {
       const commands = Object.keys(this.commands[event])
 
       commands.forEach(command => {
-        const Cmd = this.commands[event][command]
+        const Cmd: IAbstractCommand = this.commands[event][command]
 
         this.client.on(event, (...args: any[]) => {
-          isCommandEnabled(Cmd.name()).then(result => {
+          isCommandEnabled(Cmd.commandName()).then(result => {
             if (result) {
               new Cmd(args, this.config).execute()
             }
@@ -121,7 +122,7 @@ export default class CommandManager {
    * @param {string} commandName
    */
   addCommandToDatabase(commandName: string) {
-    const Command = this.database.models.Command
+    const { Command } = this.database.models
 
     Command.findOrCreate({ where: { name: commandName } })
   }

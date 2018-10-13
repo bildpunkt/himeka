@@ -13,6 +13,10 @@ export default class RoleWhitelistCommand extends MessageCommand {
     this.commandName = 'whitelist-role'
   }
 
+  static commandName() {
+    return 'whitelist-role'
+  }
+
   command() {
     const messageArguments = this.message.content
       .slice(this.config.get('prefix').length)

@@ -13,6 +13,10 @@ export default class EnableCommand extends MessageCommand {
     this.commandName = 'enable'
   }
 
+  static commandName() {
+    return 'enable'
+  }
+
   command() {
     const messageArguments = this.message.content
       .slice(this.config.get('prefix').length)

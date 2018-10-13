@@ -14,7 +14,7 @@ export default class Himeka {
    * @constructor
    * @param {*} config - instance of ConfigManager
    */
-  constructor (config) {
+  constructor(config) {
     this.client = new Client()
     this.config = config
 
@@ -25,7 +25,7 @@ export default class Himeka {
   /**
    * Function to start the bot!
    */
-  run () {
+  run() {
     this.client.login(this.config.get('token'))
   }
 }

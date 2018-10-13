@@ -20,26 +20,16 @@ abstract class AbstractCommand {
   /**
    * Name of the command
    */
-  public commandName: string = 'abstract-command'
+  public static commandName() {
+    return 'abstract-command'
+  }
 
   /**
    * Event type of the command
    * https://discord.js.org/#/docs/main/stable/class/Client
    */
-  public event: string = 'TODO: Not implemented'
-
-  /**
-   * Getter for the command name.
-   */
-  get name() {
-    return this.commandName
-  }
-
-  /**
-   * Setter for the command name.
-   */
-  set name(commandName: string) {
-    this.commandName = commandName
+  public static event() {
+    return 'TODO: Not implemented'
   }
 
   /**

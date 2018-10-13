@@ -31,10 +31,14 @@ export default class RoleCreateCommand extends AbstractCommand {
   /**
    * Name of the command
    */
-  public commandName: string = 'role-create-event'
+  static commandName() {
+    return 'role-create-event'
+  }
 
   /**
    * Event type of the command
    */
-  public event: string = 'roleCreate'
+  static event() {
+    return 'roleCreate'
+  }
 }

@@ -31,10 +31,14 @@ export default class RoleUpdateCommand extends AbstractCommand {
   /**
    * Name of the command
    */
-  public commandName: string = 'role-update-event'
+  static commandName() {
+    return 'role-update-event'
+  }
 
   /**
    * Event type of the command
    */
-  public static event: string = 'roleUpdate'
+  static event() {
+    return 'roleUpdate'
+  }
 }
