@@ -3,6 +3,7 @@
 import { Client } from 'discord.js'
 import CommandManager from './lib/commandManager'
 import DatabaseManager from './lib/databaseManager'
+import ConfigManager from './lib/configManager'
 
 /**
  * Himeka
@@ -10,11 +11,15 @@ import DatabaseManager from './lib/databaseManager'
  * Main class for the Discord bot
  */
 export default class Himeka {
+  client: Client
+  config: ConfigManager
+  database: DatabaseManager
+  commands: CommandManager
+
   /**
    * @constructor
-   * @param {*} config - instance of ConfigManager
    */
-  constructor(config) {
+  constructor(config: ConfigManager) {
     this.client = new Client()
     this.config = config
 

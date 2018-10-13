@@ -8,6 +8,7 @@ import isCommandEnabled from '../utilities/isCommandEnabled'
 import ConfigManager from './configManager'
 import DatabaseManager from './databaseManager'
 import { IAbstractCommand, CommandEventMap } from '../types'
+import { pathResolve } from '../utilities/pathUtils'
 
 /**
  * CommandManager
@@ -44,9 +45,9 @@ export default class CommandManager {
   collectCommands() {
     let commands: CommandEventMap = {}
 
-    const commandFiles = readdirSync(
-      join(process.cwd(), './src/commands')
-    ).filter(file => file.endsWith('.js'))
+    const commandFiles = readdirSync(pathResolve('./src/commands')).filter(
+      file => file.endsWith('.js')
+    )
 
     for (const file of commandFiles) {
       const command: IAbstractCommand = require(join(
@@ -66,13 +67,12 @@ export default class CommandManager {
 
     if (this.config.get('additionalCommands').enabled) {
       const additionalCommandFiles = readdirSync(
-        join(process.cwd(), this.config.get('additionalCommands').path)
+        pathResolve(this.config.get('additionalCommands').path)
       ).filter(file => file.endsWith('.js'))
 
       for (const file of additionalCommandFiles) {
         const command: IAbstractCommand = require(join(
-          __dirname,
-          '../..',
+          process.cwd(),
           this.config.get('additionalCommands').path,
           file
         )).default
