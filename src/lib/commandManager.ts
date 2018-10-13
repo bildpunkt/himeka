@@ -46,7 +46,9 @@ export default class CommandManager {
     let commands: CommandEventMap = {}
 
     const commandFiles = readdirSync(pathResolve('./src/commands')).filter(
-      file => file.endsWith('.js')
+      file => {
+        return file.endsWith('.js') || file.endsWith('.ts')
+      }
     )
 
     for (const file of commandFiles) {
@@ -68,7 +70,9 @@ export default class CommandManager {
     if (this.config.get('additionalCommands').enabled) {
       const additionalCommandFiles = readdirSync(
         pathResolve(this.config.get('additionalCommands').path)
-      ).filter(file => file.endsWith('.js'))
+      ).filter(file => {
+        return file.endsWith('.js') || file.endsWith('.ts')
+      })
 
       for (const file of additionalCommandFiles) {
         const command: IAbstractCommand = require(join(
