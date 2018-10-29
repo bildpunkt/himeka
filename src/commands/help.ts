@@ -24,9 +24,6 @@ export default class HelpCommand extends MessageCommand {
   }
 
   command() {
-    // const messageArguments = this.message.content
-    //   .slice(this.config.get('prefix').length)
-    //   .split(/ +/)
     const commandManager = new CommandManager(this.config, database)
     const commands = commandManager.collectCommands()['message']
     const message = new RichEmbed()
