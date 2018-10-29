@@ -30,6 +30,7 @@ export default class HelpCommand extends MessageCommand {
     const commandManager = new CommandManager(this.config, database)
     const commands = commandManager.collectCommands()['message']
     const message = new RichEmbed()
+    message.setTitle("List of available commands")
     for (const command in commands) {
       message.addField(command, commands[command].commandDescription())
     }
