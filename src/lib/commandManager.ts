@@ -18,20 +18,26 @@ import { pathResolve } from '../utilities/pathUtils'
 export default class CommandManager {
   private commands: Record<string, any>
   private config: ConfigManager
-  private client: Client
+  private client?: Client
   private database: DatabaseManager
 
   /**
    * Constructor
+   *
+   * @param config The ConfigManager instance
+   * @param client Optional. The Discord client
+   * @param database An instance of the DatabaseManager
    */
   constructor(
     config: ConfigManager,
-    client: Client,
-    database: DatabaseManager
+    database: DatabaseManager,
+    client?: Client,
   ) {
     this.config = config
-    this.client = client
     this.database = database
+    if (client) {
+      this.client = client
+    }
 
     this.commands = this.collectCommands()
     this.setupCommands()
@@ -99,6 +105,10 @@ export default class CommandManager {
    * defined events
    */
   setupCommands() {
+    if (!this.client) {
+      return;
+    }
+
     const events = Object.keys(this.commands)
 
     this.client.on('ready', () => {})
@@ -109,6 +119,7 @@ export default class CommandManager {
       commands.forEach(command => {
         const Cmd: IAbstractCommand = this.commands[event][command]
 
+        // @ts-ignore Would have already returned if this.config was undefined
         this.client.on(event, (...args: any[]) => {
           isCommandEnabled(Cmd.commandName()).then(result => {
             if (result) {

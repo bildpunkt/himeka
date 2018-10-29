@@ -24,7 +24,7 @@ export default class Himeka {
     this.config = config
 
     this.database = new DatabaseManager()
-    this.commands = new CommandManager(config, this.client, this.database)
+    this.commands = new CommandManager(config, this.database, this.client)
   }
 
   /**
