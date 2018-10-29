@@ -18,6 +18,10 @@ export default class RemoveAdminCommand extends MessageCommand {
     return 'remove-admin'
   }
 
+  static commandDescription() {
+    return 'Removes a user\'s admin privileges'
+  }
+
   command() {
     const messageArguments = this.message.content
       .slice(this.config.get('prefix').length)
