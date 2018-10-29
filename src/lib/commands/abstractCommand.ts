@@ -25,6 +25,13 @@ abstract class AbstractCommand {
   }
 
   /**
+   * Description of the command, used as help text
+   */
+  public static commandDescription() {
+    return 'TODO: Not implemented'
+  }
+
+  /**
    * Event type of the command
    * https://discord.js.org/#/docs/main/stable/class/Client
    */
