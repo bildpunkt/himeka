@@ -3,6 +3,7 @@ import ConfigManager from './lib/configManager'
 export interface IAbstractCommand {
   new (args: any[], config: ConfigManager): IAbstractCommand
   commandName(): string
+  commandDescription(): string
   event(): string
   execute(): void
   command(): void
