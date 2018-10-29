@@ -18,6 +18,10 @@ export default class RoleWhitelistCommand extends MessageCommand {
     return 'whitelist-role'
   }
 
+  static commandDescription() {
+    return 'Enables a role to be self-assigned'
+  }
+
   command() {
     const messageArguments = this.message.content
       .slice(this.config.get('prefix').length)

@@ -18,6 +18,10 @@ export default class AddAdminCommand extends MessageCommand {
     return 'add-admin'
   }
 
+  static commandDescription() {
+    return 'Grants a user admin rights for the bot'
+  }
+
   command() {
     const messageArguments = this.message.content
       .slice(this.config.get('prefix').length)

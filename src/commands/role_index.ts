@@ -18,6 +18,10 @@ export default class RoleIndexCommand extends MessageCommand {
     return 'index-roles'
   }
 
+  static commandDescription() {
+    return 'Lists available roles'
+  }
+
   command() {
     this.message.guild.roles.array().forEach(role => {
       Role.findOrCreate({

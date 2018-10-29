@@ -17,6 +17,10 @@ export default class RoleAvailableCommand extends MessageCommand {
     return 'available-roles'
   }
 
+  static commandDescription() {
+    return 'Lists all roles which allow self-assigning'
+  }
+
   command() {
     Role.findAll({ where: { whitelisted: true } })
       .then(roles => {

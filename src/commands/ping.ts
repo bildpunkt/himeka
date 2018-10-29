@@ -14,6 +14,10 @@ export default class PingCommand extends MessageCommand {
     return 'ping'
   }
 
+  static commandDescription() {
+    return 'Responds with pong. Useful for checking if the bot is responding to commands'
+  }
+
   command() {
     if (this.message.content === 'ping') {
       this.message.channel.send('pong')

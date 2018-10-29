@@ -18,6 +18,10 @@ export default class EnableCommand extends MessageCommand {
     return 'enable'
   }
 
+  static commandDescription() {
+    return 'Re-enables a command'
+  }
+
   command() {
     const messageArguments = this.message.content
       .slice(this.config.get('prefix').length)

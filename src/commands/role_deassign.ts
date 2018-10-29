@@ -17,6 +17,10 @@ export default class RoleDeassignCommand extends MessageCommand {
     return 'deassign-role'
   }
 
+  static commandDescription() {
+    return 'De-assigns you from a given role'
+  }
+
   command() {
     const messageArguments = this.message.content
       .slice(this.config.get('prefix').length)

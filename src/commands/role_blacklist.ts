@@ -18,6 +18,10 @@ export default class RoleBlacklistCommand extends MessageCommand {
     return 'blacklist-roles'
   }
 
+  static commandDescription() {
+    return 'Prevents a role from being self-assigned'
+  }
+
   command() {
     const messageArguments = this.message.content
       .slice(this.config.get('prefix').length)
