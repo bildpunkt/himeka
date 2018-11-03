@@ -23,22 +23,22 @@ export default class AddAdminCommand extends MessageCommand {
   }
 
   command() {
-    const messageArguments = this.message.content
-      .slice(this.config.get('prefix').length)
-      .split(/ +/)
-    const userID = messageArguments[1]
+    if (this.message.mentions.members.first() !== undefined) {
+      const user = this.message.mentions.members.first()
+      const userID = user.id
 
-    Admin.findOne({ where: { snowflake: userID } })
-      .then(admin => {
-        if (admin !== null) {
-          this.message.channel.send('User is already an admin!')
-          throw new Error()
-        }
+      Admin.findOne({ where: { snowflake: userID } })
+        .then(admin => {
+          if (admin !== null) {
+            this.message.channel.send('User is already an admin!')
+            throw new Error()
+          }
 
-        Admin.create({ snowflake: userID }).then(() => {
-          this.message.channel.send(`User with ID ${userID} is now an admin!`)
+          Admin.create({ snowflake: userID }).then(() => {
+            this.message.channel.send(`${user.toString()} is now an admin!`)
+          })
         })
-      })
-      .catch(Error, () => {})
+        .catch(Error, () => {})
+    }
   }
 }

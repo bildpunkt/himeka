@@ -23,24 +23,24 @@ export default class RemoveAdminCommand extends MessageCommand {
   }
 
   command() {
-    const messageArguments = this.message.content
-      .slice(this.config.get('prefix').length)
-      .split(/ +/)
-    const userID = messageArguments[1]
+    if (this.message.mentions.members.first() !== undefined) {
+      const user = this.message.mentions.members.first()
+      const userID = user.id
 
-    Admin.findOne({ where: { snowflake: userID } })
-      .then(admin => {
-        if (admin === null) {
-          this.message.channel.send('User is not an admin!')
-          throw new Error()
-        }
+      Admin.findOne({ where: { snowflake: userID } })
+        .then(admin => {
+          if (admin === null) {
+            this.message.channel.send('User is not an admin!')
+            throw new Error()
+          }
 
-        Admin.destroy({ where: { snowflake: userID } }).then(() => {
-          this.message.channel.send(
-            `Admin rights revoked for user with ID ${userID}!`
-          )
+          Admin.destroy({ where: { snowflake: userID } }).then(() => {
+            this.message.channel.send(
+              `Admin rights revoked for ${user.toString()}!`
+            )
+          })
         })
-      })
-      .catch(Error, () => {})
+        .catch(Error, () => {})
+    }
   }
 }
